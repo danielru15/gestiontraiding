@@ -10,7 +10,11 @@
     padding: 0 1.5rem;
 }
 table th {
+    text-align: center;
     width: 100vw;
     background-color: rgb(200, 200, 200);
   
+  }
+  td{
+      text-align: center;
   }
