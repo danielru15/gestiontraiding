@@ -6,22 +6,21 @@
         <!-- STYLES CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <link rel="stylesheet" href="/styles/dashboard/dashboard.css">
-
+        <link rel="stylesheet" href="/styles/plantraiding/styles.css">
         <!-- BOX ICONS CSS-->
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
         <title>Sidebar menu</title>
     </head>
     <body id="body">
         <header id="header">
-            <h1>hola</h1>
+            <h1>Plan de traiding</h1>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Dropdown button
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="/pages/cuenta/cambiarcontraseña.html">Cambiar contraseña</a>
+                  <a class="dropdown-item" href="/pages/cuenta/logout.html">Cerrar session</a>
                 </div>
               </div>
         </header>
@@ -59,7 +58,73 @@
             </nav>
         </div>
         <main id="main">
-        
+            <div class="botones">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" id="calcular">
+                    Gestionar plan traiding
+                </button>
+                 <button id="excel" class="btn btn-success"  title="Excel">Exportar a EXCEL</button>
+                 <button id="pdf" class="btn btn-danger"  title="Excel">Exportar a PDF</button>  
+                
+            </div>
+            <div class="formulario">
+                   <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Simula tu credito</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="enviar">
+                            <div class="modal-body">
+                                <div class="form-group">                                    
+                                <label>Inversión</label>
+                                <input id="Inversion" type="text" class="form-control" >
+                                </div>    
+                                <div class="form-group">
+                                <label>% del capital</label>
+                                <input id="Interes" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>profit <br>(lo que paga el broker)</label>
+                                    <input id="profit" type="text" class="form-control">
+                                    </div>
+                                <div class="form-group">
+                                <label>Tiempo en Dias</label>
+                                <input id="Tiempo" type="text" class="form-control" >
+                                </div>                                    
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="2">Cancelar</button>
+                                <button type="submit"  value="calcular" class="btn btn-primary" translate="1">calcular</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+            <section class="tablaPlan">
+                <table id="tabla" class="table table-striped table-bordered" style="width:100%">
+                    <thead class="text-center">
+                            <tr>                      
+                                <th>Fecha</th>
+                                <th>Cuenta</th>
+                                <th>%capital</th>
+                                <th>Profit</th>
+                                <th>Ganancia</th>   
+                                <th>Total</th>                                                         
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-de-traiding"> 
+                 
+                        </tbody>  
+                    </table>
+
+            </section>
         </main>
         <footer id="footer">
             <h4>&copy danielRamirez Todos los derechos reservados</h4>
@@ -67,8 +132,21 @@
         </footer>
        
     </body>
-    <!-- MAIN JS -->
+    <!-- bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+        <!-- PDF -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>  
+    <!-- excel -->
+   <script src="/js/xlsx.full.min.js"></script>
+   <script src="/js/FileSaver.min.js"></script>
+   <script src="/js/tableexport.min.js"></script>
+   <script src="/js/excelypdf.js"></script>
+
+   <!-- Moment js -->
+    <script src="/js/moment.js"></script>
+    <!-- propio -->
     <script src="/js/dashboard/dashboard.js"></script>
+    <script src="/js/otros/plantraiding.js"></script>
 </html>

@@ -1,0 +1,83 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+    text-decoration:none !important;
+    font-family: sans-serif !important;
+}
+
+:root {
+ --Color-primario:#12192C !important; 
+ --color-titulos:white !important;
+ --color-tercero: #F5A623 !important;
+}
+
+.login {
+    display: flex;
+    justify-content: space-around;
+}
+.lateral {
+    position: absolute;
+    left: 0;
+    width: 30vw;
+    padding-left:40px;
+    padding-right: 40px;
+    height: 100vh;
+    background-color: var(--Color-primario);
+}
+.lateral h1 {
+ margin-top: 200px;
+ color:var(--color-tercero);
+ font-size: 4vw;
+ text-align: center;
+ text-transform: uppercase;
+}
+#lateral h1 {
+ font-size: calc(4vw - 1rem);
+}
+.lateral p {
+    color: white;
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+.ingreso, .passwordrecovery, .passwordchange {
+ margin-top: 10em;
+ margin-left:33vw;
+ border-radius: 8px;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+ padding:2.5em;
+ width: 41vw;
+}
+.form-group {
+ margin-top:1em;
+}
+.form-group input{
+    width:35vw;
+    height:42px;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+#Eye, #Eyes{
+    position: absolute;
+    right:0;
+    margin-right: 17vw;
+    margin-top: -24px;
+    transform: translate(0,-50%);
+    cursor: pointer;
+}
+.passwordrecover{
+    text-decoration: underline !important;
+    color: var(--color-tercero) !important;
+}
+
+.btn-primary {
+    background-color: var(--Color-primario) !important;
+    border: 2px solid var(--Color-primario) !important;
+    color:white !important;
+}
+
+#user {
+    font-size: 1.6em;
+    color: var(--subtitulos);
+}

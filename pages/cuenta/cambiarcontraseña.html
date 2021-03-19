@@ -10,25 +10,32 @@
 </head>
 <body>
     <div class="login">
-        <div class="lateral" id="lateral">
-            <h1>Bienvenido(a)</h1>
-            <p> Introduce usuario y contraseña para ingresar al sistema.</p>
+        <div class="lateral">
+            <h1>HOLA</h1>
+            <p>Por favor, introduce una nueva contraseña. una vez cambies la contraseña por favor 
+               vuelve a ingresar al sistema
+            </p>
         </div>
-        <form class="ingreso" id="ingresar">
-            
+        <form class="passwordchange" id="passwordchange">
             <div class="form-group">
-              <label>Correo:</label>
-              <input type="email" class="form-control" id="Email" placeholder="email@example.com" autofocus required>
+                <h2 id="user">ingresa al sistema primero</h2>
             </div>
             <div class="form-group">
-                <label>contraseña</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label>Contraseña actual:</label>
+                <input type="password" class="form-control" id="passworduser" placeholder="Password" required>
+                <span id="Eyes">
+                    <i class="fas fa-eye" id="eye"></i>
+                </span>
+            </div>
+            <div class="form-group">
+                <label> Nueva contraseña:</label>
+                <input type="password" class="form-control" id="newpassword" placeholder="Password" required>
                 <span id="Eye">
                     <i class="fas fa-eye" id="eye"></i>
                 </span>
-                <a href="/pages/cuenta/recuperarcontraseña.html" class="passwordrecover">¿Olvidó su contraseña?</a>
             </div>
-            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <button type="submit" class="btn btn-primary" id="cerrarsesions">Cambiar contraseña</button>
+           
         </form>
     </div>
 

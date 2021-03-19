@@ -11,3 +11,24 @@ $btnExportar.addEventListener("click", function() {
     let preferenciasDocumento = datos.tabla.xlsx;
     tableExport.export2file(preferenciasDocumento.data, preferenciasDocumento.mimeType, preferenciasDocumento.filename, preferenciasDocumento.fileExtension, preferenciasDocumento.merges, preferenciasDocumento.RTL, preferenciasDocumento.sheetname);
 });
+
+
+// PDF
+const pdf = document.getElementById('pdf')
+pdf.addEventListener('click',exportpdfs)
+function exportpdfs() {
+  // pdf
+  html2canvas(document.getElementById('tabla'), {
+   onrendered: function (canvas) {
+       var data = canvas.toDataURL();
+       var docDefinition = {
+           content: [{
+               title:'plantraiding',
+               image: data,
+               width: 500
+           }]
+       };
+       pdfMake.createPdf(docDefinition).download("plantraiding.pdf");
+   }
+});
+}

@@ -1,0 +1,16 @@
+.tablaPlan{
+    padding:0 1rem;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.botones {
+    margin-top: 1rem;
+    padding: 0 1.5rem;
+}
+table th {
+    width: 100vw;
+    background-color: rgb(200, 200, 200);
+  
+  }

@@ -63,7 +63,7 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  width: 56px;
+  width: 4vw;
   height: 100vh;
   background-color: var(--first-color);
   padding: 1.25rem .5rem 2rem;
@@ -194,7 +194,7 @@ header {
   height: 5rem;
   padding: 1rem 2rem 1rem 5rem;
   background-color: #F5A623;
-  box-shadow: 0 8px 16px 0 rgba(50, 50, 50, 0.37);
+  /*box-shadow: 0 8px 16px 0 rgba(50, 50, 50, 0.37);*/
 }
 footer {
   display: flex;
@@ -207,19 +207,23 @@ footer {
   height: 5rem;
   color: #444;
 }
+.dropdown-toggle {
+  background-color: var(--second-color) !important;
+  border:0;
+  margin-right: 1rem !important;
+}
+.dropdown-item:hover{
+  color: white !important;
+  background-color: var(--first-color) !important;
+}
+.dropdown-item.active {
+  background-color: transparent;
+  color: #12192C;
+}
 
 main {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
+  width:calc(100vw - 1.7vw);
   margin-bottom: 3rem;
   min-height: 70vh;
-   padding: 1rem 0 0 5rem;
-}
-#name {
-  width: 90vw;
-  height: 50px;
-  background-color: yellowgreen;
-  border-radius: .40rem;
-  margin-top: 1rem;
+  padding: 1rem 0 0 5em;
 }
