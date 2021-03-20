@@ -15,15 +15,15 @@
             <h1>Bienvenido(a)</h1>
             <p> Introduce usuario y contraseña para ingresar al sistema.</p>
         </div>
-        <form class="ingreso" id="registrar">
+        <form class="was-validated ingreso" id="registrar">
             <div class="row">
                 <div class="col">
                   <label>Nombre</label>
-                  <input type="text" class="form-control" placeholder="Nombre">
+                  <input type="text" class="form-control" id="validationTooltip01"  placeholder="Nombre" required>
                 </div>
                 <div class="col">
                   <label>Apellido</label>
-                  <input type="text" class="form-control" placeholder="Apellido">
+                  <input type="text" class="form-control" placeholder="Apellido" required>
                 </div>
             </div>
             <div class="form-group">
@@ -32,11 +32,11 @@
               </div>
               <div class="form-group">
                   <label>contraseña</label>
-                  <input autocomplete="none" type="password" class="form-control" id="password" placeholder="contraseña">
+                  <input autocomplete="none" type="password" class="form-control" id="password" placeholder="contraseña" required>
               </div>
               <div class="form-group">
                 <label>contraseña</label>
-                <input autocomplete="none" type="password" class="form-control" id="repitpassword" placeholder="contraseña">
+                <input autocomplete="none" type="password" class="form-control" id="repitpassword" placeholder="contraseña" required>
             </div>
             
             <button type="submit" class="btn btn-primary">Crear Cuenta</button>
