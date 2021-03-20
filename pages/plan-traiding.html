@@ -20,7 +20,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="/pages/cuenta/cambiarcontraseña.html">Cambiar contraseña</a>
-                  <a class="dropdown-item" href="/pages/cuenta/logout.html">Cerrar session</a>
+                  <a class="dropdown-item" href="" id="cerrarsesion">Cerrar session</a>
                 </div>
               </div>
         </header>
@@ -132,21 +132,24 @@
             <h4>&copy danielRamirez Todos los derechos reservados</h4>
             <h5>v 1.0</h5>
         </footer>
-       
-    </body>
+        
     <!-- bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <!--firebase  --> 
+   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+   <script src="/js/firebase/firebaseconifg.js"></script>
+   <script src="/js/acces/usuarioactivo.js"></script>
     <!-- excel -->
    <script src="/js/xlsx.full.min.js"></script>
    <script src="/js/FileSaver.min.js"></script>
    <script src="/js/tableexport.min.js"></script>
    <script src="/js/excelypdf.js"></script>
-   
     <!-- PDF -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>  
-
    <!-- Moment js -->
     <script src="/js/moment.js"></script>
     <!-- sweetalert2 -->
@@ -154,4 +157,5 @@
     <!-- propio -->
     <script src="/js/dashboard/dashboard.js"></script>
     <script src="/js/otros/plantraiding.js"></script>
+    </body>
 </html>

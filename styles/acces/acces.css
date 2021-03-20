@@ -81,3 +81,6 @@
     font-size: 1.6em;
     color: var(--subtitulos);
 }
+#registrar {
+    margin-top: 5rem !important;
+}

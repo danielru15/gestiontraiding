@@ -102,6 +102,7 @@ function leerLocalStorage() {
     Plans = obtenerTablaLocalStorage();
 
     Plans.forEach(function(plan){
+      
         // constrir el template
         const llenartabla = document.createElement('tr')
         llenartabla.innerHTML=`
