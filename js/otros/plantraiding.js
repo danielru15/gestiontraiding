@@ -1,14 +1,16 @@
-const Datos = document.getElementById('tabla')
+const Datos = document.getElementById('tabla-de-traiding')
 const calcular = document.getElementById('enviar')
+let PlanTraiding = []
 calcular.addEventListener('submit', Calcular)
 function Calcular (e) {
     e.preventDefault()
+    while(Datos.firstChild){
+      Datos.removeChild(Datos.firstChild);}
     // variables
     const inversionInicial = document.getElementById('Inversion').value
     const inversionOperacion = document.getElementById('Interes').value
     const profit = document.getElementById('profit').value
     const Tiempo = document.getElementById('Tiempo').value
-    let PlanTraiding = []
     let Cuenta = 0
     let inversion = 0
     let Ganancia = 0
@@ -20,7 +22,7 @@ function Calcular (e) {
     DiaActual.add('day')
     // inicializamos cuenta en inversion inicial
     Cuenta = parseFloat(inversionInicial)
-    
+    if(Tiempo <= 90){
     for (let i= 0 ; i< Tiempo; i ++){
         /*(Formula para calcular el total de la cuenta) .
           -  cuenta inicia en inversion inical
@@ -32,29 +34,34 @@ function Calcular (e) {
         inversion = parseFloat((Cuenta * inversionOperacion)/100) 
         Ganancia = parseFloat((inversion * profit)/100)
         Total = parseFloat(Cuenta + Ganancia) 
-        Cuenta = Total 
+        //iniciamos una variable temporal para guardar el ultimo valor de la cuenta
+        let currentCount =Cuenta
+        Cuenta = Total
      
        
         //Formato fechas
         Fechas[i] = DiaActual.format('DD-MM-YYYY');
         DiaActual.add(1, 'day');
-        //llenar tabla
+        //lenar tabla
         let plan ={
           Numero:Fechas.length,
           Fechas:Fechas[i],
-          Cuenta:Cuenta,
+          Cuenta:currentCount,
           inversionOperacion:inversionOperacion,
           inversion:inversion,
           profit:profit,
-          Ganancia:Ganancia
+          Ganancia:Ganancia,
+          Total:Total
         }
         PlanTraiding.push(plan)
-        console.log(PlanTraiding)
+        // ese arreglo lo enviamos al localstorage
+        localStorage.setItem('plan',JSON.stringify(PlanTraiding)) 
+       
         const llenartabla = document.createElement('tr')
         llenartabla.innerHTML=`
             <td>${Fechas.length}</td>
             <td>${Fechas[i]}</td>
-            <td>${Cuenta}</td>
+            <td>${currentCount.toFixed(2)}</td>
             <td>${inversionOperacion + '%'}</td>
             <td>${inversion.toFixed(2)}</td>
             <td>${profit + '%'}</td>
@@ -63,9 +70,50 @@ function Calcular (e) {
         `
       Datos.appendChild(llenartabla)
 
+    }}else{
+      Swal.fire({
+        title: 'No se pudo generar plan de traiding',
+        text: 'El plan de traiding esta diseñado para un lapso de tiempo menor o igual a 90 días, porfavor selecciona un tiempo menor o igual a 90 días',
+        icon: "error",
+      })
     }
    //resetiamos el formulario
     calcular.reset()
     // cerrar el modal
     $('#staticBackdrop').modal('hide')
+}
+
+// Comprueba que haya elementos en Local Storage
+function obtenerTablaLocalStorage() {
+  let Plans;
+
+  // comprobamos si hay algo en localStorage
+  if(localStorage.getItem('plan') === null) {
+      Plans= []
+  } else {
+      Plans = JSON.parse( localStorage.getItem('plan') )
+  }
+  return Plans
+}
+document.addEventListener('DOMContentLoaded', leerLocalStorage);
+function leerLocalStorage() {
+    let Plans;
+
+    Plans = obtenerTablaLocalStorage();
+
+    Plans.forEach(function(plan){
+        // constrir el template
+        const llenartabla = document.createElement('tr')
+        llenartabla.innerHTML=`
+        <td>${plan.Numero}</td>
+        <td>${plan.Fechas}</td>
+        <td>${plan.Cuenta.toFixed(2)}</td>
+        <td>${plan.inversionOperacion + '%'}</td>
+        <td>${plan.inversion.toFixed(2)}</td>
+        <td>${plan.profit + '%'}</td>
+        <td>${plan.Ganancia.toFixed(2)}</td>
+        <td>${plan.Total.toFixed(2)}</td>
+        `
+      Datos.appendChild(llenartabla)
+    })
 }

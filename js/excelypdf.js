@@ -4,8 +4,8 @@ const $btnExportar = document.querySelector("#excel"),
 $btnExportar.addEventListener("click", function() {
     let tableExport = new TableExport($tabla, {
         exportButtons: false, // No queremos botones
-        filename: "tabla amortizacion fija", //Nombre del archivo de Excel
-        sheetname: "tabla amortizacion fija", //Título de la hoja
+        filename: "Plan de traiding", //Nombre del archivo de Excel
+        sheetname: "Plan de traiding", //Título de la hoja
     });
     let datos = tableExport.getExportData();
     let preferenciasDocumento = datos.tabla.xlsx;
