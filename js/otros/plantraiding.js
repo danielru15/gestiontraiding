@@ -1,4 +1,7 @@
 const Datos = document.getElementById('tabla-de-traiding')
+const promedioTotal = document.getElementById('promedio-total')
+const operacionPromedio = document.getElementById('operacion-promedio') 
+const totalGanado = document.getElementById('total-ganado') 
 const calcular = document.getElementById('enviar')
 let PlanTraiding = []
 calcular.addEventListener('submit', Calcular)
@@ -9,12 +12,15 @@ function Calcular (e) {
     // variables
     const inversionInicial = document.getElementById('Inversion').value
     const inversionOperacion = document.getElementById('Interes').value
+    const operacion = document.getElementById('Interesoperacion').value
     const profit = document.getElementById('profit').value
     const Tiempo = document.getElementById('Tiempo').value
     let Cuenta = 0
     let inversion = 0
     let Ganancia = 0
     let Total = 0
+    let OperacionPromedio = 0
+    let PromedioTotal = 0
     //declaramos un arreglo para la fechas
     let Fechas = []
     let FechaActual = Date.now()
@@ -37,7 +43,10 @@ function Calcular (e) {
         //iniciamos una variable temporal para guardar el ultimo valor de la cuenta
         let currentCount =Cuenta
         Cuenta = Total
-     
+        // operaciones promedio
+        OperacionPromedio = Math.round(inversionOperacion/operacion)
+        // PromedioTotal
+        PromedioTotal = (Tiempo * OperacionPromedio )
        
         //Formato fechas
         Fechas[i] = DiaActual.format('DD-MM-YYYY');
@@ -51,7 +60,10 @@ function Calcular (e) {
           inversion:inversion,
           profit:profit,
           Ganancia:Ganancia,
-          Total:Total
+          Total:Total,
+          totalGanado:Total,
+          OperacionPromedio:OperacionPromedio,
+          PromedioTotal:PromedioTotal
         }
         PlanTraiding.push(plan)
         // ese arreglo lo enviamos al localstorage
@@ -69,6 +81,11 @@ function Calcular (e) {
             <td>${Total.toFixed(2)}</td>
         `
       Datos.appendChild(llenartabla)
+
+      // Mostrar total-ganado, operacion promedio, totaloperaciones
+      totalGanado.innerHTML = Total.toFixed(2)
+      operacionPromedio.innerHTML = OperacionPromedio
+      promedioTotal.innerHTML = PromedioTotal
 
     }}else{
       Swal.fire({
@@ -116,5 +133,12 @@ function leerLocalStorage() {
         <td>${plan.Total.toFixed(2)}</td>
         `
       Datos.appendChild(llenartabla)
-    })
+
+      // Mostrar total-ganado, operacion promedio, totaloperaciones
+      totalGanado.innerHTML = plan.Total.toFixed(2)
+      operacionPromedio.innerHTML = plan.OperacionPromedio
+      promedioTotal.innerHTML = plan.PromedioTotal
+      
+    }) 
+    
 }

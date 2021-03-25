@@ -61,15 +61,15 @@
             <div class="row cards">
                 <div class="info-card">
                     <h3>total operaciones</h3>
-                    <h4 class="alert alert-info">En promedio son </h4>
+                    <h4 class="alert alert-info" id="promedio-total">0 </h4>
                 </div>
                 <div class="info-card">
                     <h3>operaciones promedio retorno %capital</h3>
-                    <h4 class="alert alert-dark">En promedio son </h4>
+                    <h4 class="alert alert-dark" id="operacion-promedio"> 0</h4>
                 </div>
                 <div class="info-card">
                     <h3>total ganado</h3>
-                    <h4 class="alert alert-success">$ 500</h4>
+                    <h4 class="alert alert-success" id="total-ganado">$ 0</h4>
                 </div>
             </div>
             <div class="botones">
@@ -86,7 +86,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Simula tu credito</h5>
+                            <h5 class="modal-title" id="staticBackdropLabel">Crear plan traiding</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -103,9 +103,13 @@
                                         <input id="Interes" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label>profit <br>(lo que paga el broker)</label>
-                                            <input id="profit" type="text" class="form-control">
-                                            </div>
+                                        <label>% x Operacion</label>
+                                        <input id="Interesoperacion" type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                        <label>profit <br>(lo que paga el broker)</label>
+                                        <input id="profit" type="text" class="form-control">
+                                        </div>
                                         <div class="form-group">
                                         <label>Tiempo en Dias</label>
                                         <input id="Tiempo" type="text" class="form-control" >
