@@ -1,23 +1,19 @@
-/* 
-- enumerar cantidad de operaciones x dia
-- mostrar total ganada - perdida
-- mostrar cuenta 
-
-*/
- const crear = document.getElementById('enviar')
+const crear = document.getElementById('enviar')
     crear.addEventListener('submit', Crear)
     function Crear (e) {
         e.preventDefault()
         // variables
+        const cuenta = document.getElementById('Cuenta').value
         const inversion = document.getElementById('Inversion').value
         const profit = document.getElementById('profit').value
         const opcion = document.getElementById('opcion').value
         const win = document.getElementById('Ganada').value
         const seleccione = document.getElementById('seleccione').value
-        let Cuenta = 0
+        let Cuenta = parseFloat(cuenta)
         let Total = 0
         let Ganada = 0
         let Perdida = 0
+        let currentCount =Cuenta
         /* Formula
         Ganada = inversion * profit
         Perdida = inversion
@@ -29,15 +25,18 @@
         let FechaActual = Date.now()
         let DiaActual = moment(FechaActual).format('DD-MM-YYYY')
         let Hora = moment(FechaActual).format('LTS')
-
+        
         if(opcion === win && opcion !== seleccione && profit !== '' && profit <= 97){
             Ganada = parseFloat(inversion * profit/100)
             Perdida = 0
             Total = Ganada - Perdida
+            Cuenta = Cuenta + Total
             db.collection(usuario).add({
                 Timestamp:firebase.firestore.FieldValue.serverTimestamp(),
                 Fecha:DiaActual,
                 Hora:Hora,
+                Cuenta:Cuenta,
+                Totalacc:currentCount,
                 inversion:inversion,
                 Ganadaoperdida: opcion,
                 Total:Total
@@ -52,6 +51,7 @@
                     appearTime  : 0.5,
                     DURATION_LONG   : 6000, 
                 });  
+                
                 //resetiamos el formulario
                 crear.reset()
                 // cerrar el modal
@@ -64,13 +64,16 @@
                    })
             })
         }else if (opcion !== win && opcion !== seleccione){
-            Perdida = inversion
+            Cuenta = cuenta + Total
+            Perdida = parseFloat(inversion)
             Ganada = 0
-            Total = Ganada - Perdida
+            Total = parseFloat(Ganada - Perdida)
             db.collection(usuario).add({
                 Timestamp:firebase.firestore.FieldValue.serverTimestamp(),
                 Fecha:DiaActual,
                 Hora:Hora,
+                Cuenta:Cuenta,
+                Totalacc:currentCount,
                 inversion:inversion,
                 Ganadaoperdida: opcion,
                 Total:Total
@@ -85,7 +88,6 @@
                     appearTime  : 0.5,
                     DURATION_LONG   : 6000, 
                 }); 
-                
                 crear.reset()
                 // cerrar el modal
                 $('#staticBackdrop').modal('hide')
@@ -102,7 +104,6 @@
         }
     }
 
-// Manejo de Fechas
 
 const Datos = document.getElementById('datos')
 let user = firebase.auth().onAuthStateChanged(function(user){
@@ -117,6 +118,8 @@ let user = firebase.auth().onAuthStateChanged(function(user){
                 <div>
                 <h3>Fecha:${doc.data().Fecha}</h3>
                 <h3>Hora:${doc.data().Hora}</h3>
+                <h3>Cuenta:${doc.data().Cuenta}</h3>
+                <h3>Cuenta:${doc.data().Totalacc}</h3>
                 <h3 class="info1">${doc.data().Ganadaoperdida}</h3>
                    <h3>Total:${doc.data().Total.toFixed(2)}</h3>
                 </div>

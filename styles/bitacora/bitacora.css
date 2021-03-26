@@ -47,3 +47,9 @@
   .info1{
       color:var(--second-color);
   }
+  .botones {
+      display: flex;
+  }
+  #Cuenta {
+      margin: 0 1rem;
+  }
