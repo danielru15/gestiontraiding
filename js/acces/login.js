@@ -27,7 +27,7 @@ function ingresar(e) {
         const email = document.getElementById('Email').value
         const password = document.getElementById('password').value
         firebase.auth().signInWithEmailAndPassword(email, password).then(function (result) { 
-        window.location.href='/pages/inico.html'
+        window.location.href='/pages/plan-traiding.html'
     })
     .catch(function (error) {
         //error

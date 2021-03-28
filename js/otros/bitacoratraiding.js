@@ -1,8 +1,9 @@
 const crear = document.getElementById('enviar')
+const si = document.getElementById('si')
 let showTotal = document.getElementById('cuenta-total')
-let EstadoDeCuenta = 0
+let EstadoDeCuenta
 
-
+// crear registro bitacora
 crear.addEventListener('submit', async function (e) {
     e.preventDefault()
     // variables
@@ -26,6 +27,8 @@ crear.addEventListener('submit', async function (e) {
     let FechaActual = Date.now()
     let DiaActual = moment(FechaActual).format('DD-MM-YYYY')
     let Hora = moment(FechaActual).format('LTS')
+
+    // acumulador
     if (cuenta !== '') {
         EstadoDeCuenta = parseFloat(cuenta)
     }else {
@@ -33,13 +36,15 @@ crear.addEventListener('submit', async function (e) {
         let Count = 0
         let docs = await db.collection(usuario).orderBy("Timestamp", "desc").limit(1).get().catch(err => console.log(err))
         docs.forEach(doc => {
-            Count += Number(doc.data().EstadoDeCuenta)
-            console.log(doc.data().EstadoDeCuenta)
+            Count += doc.data().EstadoDeCuenta
+            //console.log(doc.data().EstadoDeCuenta)
         })
-        EstadoDeCuenta = Number(Count)
+        EstadoDeCuenta = Count
+       
+
     }
-    
-    if (opcion === win && opcion !== seleccione && profit !== '' && profit <= 97) {
+
+    if (opcion === win && opcion !== seleccione && profit !== '' && profit <= 100 && inversion <= EstadoDeCuenta && EstadoDeCuenta > 0) {
         Ganada = parseFloat(inversion * profit / 100)
         Perdida = 0
         Result = Ganada - Perdida
@@ -49,6 +54,7 @@ crear.addEventListener('submit', async function (e) {
             Fecha: DiaActual,
             Hora: Hora,
             inversion: inversion,
+            profit:profit,
             EstadoDeCuenta: EstadoDeCuenta,
             Ganadaoperdida: opcion,
             Result: Result
@@ -71,11 +77,11 @@ crear.addEventListener('submit', async function (e) {
             })
             .catch((error) => {
                 Swal.fire({
-                    title: 'No se pudo registrar, porfavor ingresa un valor en profit o un profit valido valido',
+                    title: 'No se pudo registrar, porfavor ingresa un valor en profit, un profit menor igual a 100% y verifique que la inversion no supere el monto de la cuenta',
                     icon: "error",
                 })
             })
-    } else if (opcion !== win && opcion !== seleccione  && profit <= 97) {
+    } else if (opcion !== win && opcion !== seleccione && EstadoDeCuenta > 0 && inversion <= EstadoDeCuenta) {
         Perdida = parseFloat(inversion)
         Ganada = 0
         Result = parseFloat(Ganada - Perdida)
@@ -85,6 +91,7 @@ crear.addEventListener('submit', async function (e) {
             Fecha: DiaActual,
             Hora: Hora,
             inversion: inversion,
+            profit:profit,
             EstadoDeCuenta: EstadoDeCuenta,
             Ganadaoperdida: opcion,
             Result: Result
@@ -104,11 +111,14 @@ crear.addEventListener('submit', async function (e) {
                 $('#staticBackdrop').modal('hide')
             })
             .catch((error) => {
-                console.error("Error adding document: ", error);
+                Swal.fire({
+                    title: 'verifique que la inversion no supere el monto de la cuenta',
+                    icon: "error",
+                })
             })
     } else {
         Swal.fire({
-            title: 'No se pudo registrar, porfavor selecciona si es ganada o perdida',
+            title: 'No se pudo registrar, porfavor selecciona si es ganada o perdida y verifique que su cuenta no este en 0',
             icon: "error",
         })
 
@@ -118,8 +128,16 @@ crear.addEventListener('submit', async function (e) {
 
 const Datos = document.getElementById('datos')
 
-let user = firebase.auth().onAuthStateChanged(function (user) {
+let user = firebase.auth().onAuthStateChanged(async function (user) {
     let usuario = user.email + ' bitacora'
+
+    // Mostramos la cuenta
+        let Count = 0
+        let docs = await db.collection(usuario).orderBy("Timestamp", "desc").limit(1).get().catch(err => console.log(err))
+        docs.forEach(doc => {
+            Count += doc.data().EstadoDeCuenta
+        })
+        EstadoDeCuenta = Count
 
     db.collection(usuario).orderBy("Timestamp", "desc").onSnapshot((querySnapshot) => {
         // me pinta cada fila de a 1
@@ -129,15 +147,22 @@ let user = firebase.auth().onAuthStateChanged(function (user) {
             Datos.innerHTML += `
               <div class="info">                      
                 <div>
-                    <h3>Fecha:${doc.data().Fecha}</h3>
-                    <h3>Hora:${doc.data().Hora}</h3>
-                    <h3>Inversion:${doc.data().inversion}</h3>
+                    <h4>Fecha:${doc.data().Fecha}</h4>
+                    <h4>Hora:${doc.data().Hora}</h4>
+                    <h4>Inversion:${doc.data().inversion}</h4>
+                    <h4>Profit:${doc.data().profit}</h4>
                     <h3 class="info1">${doc.data().Ganadaoperdida}</h3>
                     <h3>Total:${doc.data().Result.toFixed(2)}</h3>
                 </div>
               </div>
             `;
-            showTotal.innerHTML = Number(EstadoDeCuenta);
+            // ocultamos y mostramos el input de la cuenta
+            if(EstadoDeCuenta > 0){
+                si.style.display = 'none'
+            }else if (EstadoDeCuenta === 0){
+                si.style.display = 'block'
+            }
+            showTotal.innerHTML = EstadoDeCuenta + ' USD';
         });
     });
 })
