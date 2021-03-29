@@ -241,3 +241,51 @@ main {
   margin: 0 auto;
   width: 70vw;
 }
+.alert-info{
+  padding: 0 1.5rem;
+  margin:1rem 1.5rem;
+  font-size: 1.2em;
+}
+
+/* ir arriba */
+.boton-arriba{
+  display: none;
+  width: 3.5vw;
+  height: 3.5vw;
+  bottom: 2vh;
+  right: 2vw;
+  position: fixed;
+  cursor: pointer;
+  outline: none;
+  background-color: var(--second-color);
+  border-radius: 50%;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  transition-property: background-color, color;
+  cursor: pointer;
+} 
+
+@keyframes btnEntrance {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+} 
+.btnExit {
+  animation-duration: 0.25s;
+  animation-fill-mode: both;  
+  animation-name: btnExit;
+}
+@keyframes btnExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}

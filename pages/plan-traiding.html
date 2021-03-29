@@ -58,10 +58,21 @@
             </nav>
         </div>
         <main id="main">
+            <div class="alert alert-info" role="alert">
+                <h3 class="alert-heading">Instrucciones</h3>
+                <hr>
+                <ol>
+                    <li>1. Has click en gestionar plan traiding.</li>
+                    <li>2. llena todos los campos requeridos (inversion es el valor con el que recargaras tu cuenta, porcentaje de capital es el valor de utilidad esperada representada en porcentaje, porcentaje por operacion es un aproximado de lo que vas arriesgar en cada operacion se recomienda un 3% o un 10% maximo, profit es lo que te paga el broker por operacion, tiempo en dias es el tiempo al cual quieres saber tu ganancia).</li>
+                    <li>3. El sistema te arrojara un aproximado segun tu meta diaria de cuanto tendras al finalizar dicho periodo.</li>
+                    <li>4. El sistema de plan de traiding no aloja los datos en ninguna base de datos por lo que se recomienda exportarlos a excel o pdf.</li>
+                    <li>5. El sistema al finalizar te mostrara ademas un aproximado de cuantas operaciones debes hacer por dia  y el total de operaciones al finalizar dicho periodo</li>
+                </ol>
+              </div>
             <div class="row cards">
                 <div class="info-card">
                     <h3>total operaciones</h3>
-                    <h4 class="alert alert-info" id="promedio-total">0 </h4>
+                    <h4 class="alert alert-warning" id="promedio-total">0 </h4>
                 </div>
                 <div class="info-card">
                     <h3>operaciones promedio retorno %capital</h3>
@@ -146,6 +157,9 @@
 
             </section>
         </main>
+        <div class="boton-arriba" id="up">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACqElEQVRoQ+2ZgY0UMQxF/1UAHQAVHHRAB0AFQAVABUAFQAVABUAHUAFHBUAHUAHoSZlTLptJ7MQzy6GztFqtNOv8b/84duZEl9xOLjl+XRE4dgYjM3Bb0j1JfN9M3zm/M0k/JH2W9EUSv6dtlgBAn0i6n0B7AEHmo6Q3iZjnv+fPjhK4Lum5pKdDqx7+6bWkl5J+ef2NECDabyVBItIA/zhlxezXS+BVYNTXQJKNZ1YGVgJEm6gT/T3sXSLRlZSVwIcdwS8BggSSapqFACml0hzDqFDNQtEjgGSI/jHtQWtjtwig++8bVBtvMNgHt9ZKbIsAGnzoXW2j51eltEaAE5boz9r75CAiEGSB0/uCrRGI2LiAf5RWi8gmJ/ULKwGiTxZGLQefl8WZTBB9stDNAN3k11Hkkmrgo0jcKbvYmoRIE43aiLXAR5CgxUDe51YjQItLX+81C/hZEp/KjqBGAPkgI4+tgad/wmotwcjGZghCRs0M/PEgb2ge8HkViiJxIei1DHgItCK/gM9lE0EijIAHfCSJEAIj4KNIdAmwUU4b+6B6oKSBp5TNmpu1Xr93gH4rC8xoGS0B5BvWWgNGfJjKqPUgWwCMgC/lZPVhOsg8rQRymumZIOLxYWolFqc3rFrY6bmftWBt2U5H83K101EDTSQJ10DDwiO9SiTg3Jd7pOTPDPVssGtboTL6/Z20X73k+q+vVZYARczHxmAfPDZ9sZUfODPz7AgB04DUk9CyMPuBTOxFAvBcKYZd7u4pp65sehNZL93cl1Jio6sT1YZulpncbFYJlQ6RFE1f1K01UcdfVzIlkFECix9ObLRKVry9E70NmeRzcGVoTcEsgXwduti76QOxcihiGFles/Kq9Z94zWoN1GbPRWZgM5Atx1cEjhL2bNG/oKGKMTa6bYkAAAAASUVORK5CYII="/>
+        </div>
         <footer id="footer">
             <h4>&copy danielRamirez Todos los derechos reservados</h4>
             <h5>v 1.0</h5>
