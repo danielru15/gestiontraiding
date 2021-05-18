@@ -64,9 +64,9 @@
                 <ol>
                     <li>1. Has click en bitacora</li>
                     <li>2. La primera vez carga el valor de la cuenta con tu primera operación incluida.</li>
-                    <li>3. Si te equivocas al ingresar una operación borrala y vuelvela añadir.</li>
+                    <li>3. Si te equivocas al ingresar una operación borrala, espera que se recargue la pagina y vuelvela añadir.</li>
                     <li>4. El sistema te mostrara la siguiente información fecha, hora,inversion, profit, ganada o perdida y total.</li>
-                    <li>5. Los datos se muestan en tiempo real siendo la ultima operacion ingresada la 1 que va mosrar</li>
+                    <li>5. Los datos se muestan en tiempo real siendo la ultima operacion ingresada la 1 que va mostrar.</li>
                 </ol>
               </div>
             <div class="contenedor">
@@ -74,6 +74,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" id="calcular">
                     Bitacora
                  </button> 
+                 <button id="pdf" class="btn btn-danger"  title="Excel">Exportar a PDF</button>  
              </div>
              <div class="contenedor1">
                 <div class="total-cuenta">
@@ -137,7 +138,7 @@
         </div>
         <footer id="footer">
             <h4>&copy danielRamirez Todos los derechos reservados</h4>
-            <h5>v 1.0</h5>
+            <h5>v 1.1</h5>
         </footer>
 
 
@@ -149,6 +150,9 @@
    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
    <script src="/js/firebase/firebaseconifg.js"></script>
    <script src="/js/acces/usuarioactivo.js"></script>
+   <!-- PDF -->
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
    <!-- moment js-->
    <script src="/js/moment.js"></script>
    <!-- alerts -->

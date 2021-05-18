@@ -154,6 +154,7 @@ let user = firebase.auth().onAuthStateChanged(async function (user) {
                     <h3 class="info1">${doc.data().Ganadaoperdida}</h3>
                     <h3>Total:${doc.data().Result.toFixed(2)}</h3>
                 </div>
+                <button id="Eliminar" class="btn btn-danger" onclick="eliminar('${doc.id}')">Eliminar</button>
               </div>
             `;
             // ocultamos y mostramos el input de la cuenta
@@ -165,4 +166,71 @@ let user = firebase.auth().onAuthStateChanged(async function (user) {
             showTotal.innerHTML = EstadoDeCuenta + ' USD';
         });
     });
+
+
 })
+
+// eliminar 
+function eliminar(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-secondary'
+        },
+        buttonsStyling: true
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Esta seguro que desea eliminar esta operacion?',
+        text: "Esta operacion no se puede revertir",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+            // usuario activo
+            let user = firebase.auth().currentUser;
+            let usuario = user.email + ' bitacora'
+            db.collection(usuario).doc(id).delete().then(function () {
+                // alerta
+                swalWithBootstrapButtons.fire({
+                 title: 'operaciom eliminada correctamente',
+                 icon: "success",
+                }) 
+                window.location.reload()
+             }).catch(function (error) {
+                 console.error("Error removing document: ", error);
+             });   
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: 'Operacion cancelada',
+                icon: "error",
+               }) 
+        }
+      })
+}
+
+// PDf
+const pdf = document.getElementById('pdf')
+pdf.addEventListener('click',exportpdfs)
+function exportpdfs() {
+  // pdf
+  html2canvas(document.getElementById('datos'), {
+   onrendered: function (canvas) {
+       var data = canvas.toDataURL();
+       var docDefinition = {
+           content: [{
+               title:'Bitacoratraiding',
+               image: data,
+               width: 500
+           }]
+       };
+       pdfMake.createPdf(docDefinition).download("Bitacoratraiding.pdf");
+   }
+});
+}
