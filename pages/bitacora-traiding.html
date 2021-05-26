@@ -69,6 +69,24 @@
                     <li>5. Los datos se muestan en tiempo real siendo la ultima operacion ingresada la 1 que va mostrar.</li>
                 </ol>
               </div>
+             <div class="row cards">
+                <div class="info-card">
+                    <h3>Total Ganadas</h3>
+                    <h4 class="alert alert-warning" id="total-ganadas">0</h4>
+                </div>
+                <div class="info-card">
+                    <h3>Total Perdidas</h3>
+                    <h4 class="alert alert-danger" id="total-perdidas"> 0</h4>
+                </div>
+                <div class="info-card">
+                    <h3>Divisa mas Rentable</h3>
+                    <h4 class="alert alert-success" id="divisa-rentable">-</h4>
+                </div>
+                <div class="info-card">
+                    <h3>Divisa menos Rentable</h3>
+                    <h4 class="alert alert-dark" id="divisa-menosrentable"></h4>
+                </div>
+            </div>  
             <div class="contenedor">
              <div class="botones">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" id="calcular">
@@ -79,9 +97,6 @@
              <div class="contenedor1">
                 <div class="total-cuenta">
                     <h3 id="cuenta-total">0</h3>
-                </div>
-                <div class="total-cuenta" id="cop">
-                    <h3 id="COP">Total en COP es</h3>
                 </div>
              </div>
            
@@ -113,13 +128,47 @@
                                      <input id="profit" type="text" class="form-control">
                                      </div>
                                      <div class="form-group">
+                                        <label>Divisa</label>
+                                        <select class="form-control" id="opcion-divisa" >
+                                          <option id="seleccionar">seleccione</option>
+                                          <option>USD - CAD</option>
+                                          <option>USD - CHF</option>
+                                          <option>USD - JPY</option>
+                                          <option>AUD - CAD </option>
+                                          <option>AUD - CHF </option>
+                                          <option>AUD - JPY</option>
+                                          <option>AUD - NZD</option>
+                                          <option>AUD - USD</option>
+                                          <option>CAD - CHF</option>
+                                          <option>CAD - JPY</option>
+                                          <option>EUR - AUD</option>
+                                          <option>EUR - CAD</option>
+                                          <option>EUR - GBP</option>
+                                          <option>EUR - JPY</option>
+                                          <option>EUR - NZD</option>
+                                          <option>EUR - USD</option>
+                                          <option>GBP - CAD</option>
+                                          <option>GBP - JPY</option>
+                                          <option>GBP - USD</option>
+                                          <option>GBP - CHF</option>
+                                          <option>NZD - CAD</option>
+                                          <option>NZD - CHF</option>
+                                          <option>NZD - USD</option>
+                                          <option>NZD - JPY</option>
+                                        </select>
+                                     </div> 
+                                     <div class="form-group">
                                         <label>Ganada o Perdida</label>
                                         <select class="form-control" id="opcion" >
                                           <option id="seleccione">seleccione</option>
                                           <option id="Ganada">Ganada</option>
                                           <option>Perdida</option>
                                         </select>
-                                      </div>                                 
+                                      </div>    
+                                      <div class="form-group">
+                                        <label>Comentario</label>
+                                        <input id="comentario" type="text" class="form-control">
+                                      </div>                             
                                  </div>
                                  <div class="modal-footer">
                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" tabindex="2">Cerrar</button>
@@ -131,14 +180,34 @@
                  </div>
              </div>
          </div>
-         <section id="datos"></section>
+         <section>
+            <table id="tabla"  class="table table-striped table-bordered" style="width:100%">
+                <thead class="text-center">
+                        <tr>                    
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Inversion</th>
+                            <th>Divisa</th>
+                            <th>Profit</th>
+                            <th>Ganada o perdida</th>
+                            <th>Comentario</th>   
+                            <th>Total</th>  
+                            <th>Eliminar</th>                                                         
+                        </tr>
+                    </thead>
+                    <tbody id="datos"> 
+             
+                    </tbody>  
+                </table>
+
+        </section>
      </main> 
         <div class="boton-arriba" id="up">
             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACqElEQVRoQ+2ZgY0UMQxF/1UAHQAVHHRAB0AFQAVABUAFQAVABUAHUAFHBUAHUAHoSZlTLptJ7MQzy6GztFqtNOv8b/84duZEl9xOLjl+XRE4dgYjM3Bb0j1JfN9M3zm/M0k/JH2W9EUSv6dtlgBAn0i6n0B7AEHmo6Q3iZjnv+fPjhK4Lum5pKdDqx7+6bWkl5J+ef2NECDabyVBItIA/zhlxezXS+BVYNTXQJKNZ1YGVgJEm6gT/T3sXSLRlZSVwIcdwS8BggSSapqFACml0hzDqFDNQtEjgGSI/jHtQWtjtwig++8bVBtvMNgHt9ZKbIsAGnzoXW2j51eltEaAE5boz9r75CAiEGSB0/uCrRGI2LiAf5RWi8gmJ/ULKwGiTxZGLQefl8WZTBB9stDNAN3k11Hkkmrgo0jcKbvYmoRIE43aiLXAR5CgxUDe51YjQItLX+81C/hZEp/KjqBGAPkgI4+tgad/wmotwcjGZghCRs0M/PEgb2ge8HkViiJxIei1DHgItCK/gM9lE0EijIAHfCSJEAIj4KNIdAmwUU4b+6B6oKSBp5TNmpu1Xr93gH4rC8xoGS0B5BvWWgNGfJjKqPUgWwCMgC/lZPVhOsg8rQRymumZIOLxYWolFqc3rFrY6bmftWBt2U5H83K101EDTSQJ10DDwiO9SiTg3Jd7pOTPDPVssGtboTL6/Z20X73k+q+vVZYARczHxmAfPDZ9sZUfODPz7AgB04DUk9CyMPuBTOxFAvBcKYZd7u4pp65sehNZL93cl1Jio6sT1YZulpncbFYJlQ6RFE1f1K01UcdfVzIlkFECix9ObLRKVry9E70NmeRzcGVoTcEsgXwduti76QOxcihiGFles/Kq9Z94zWoN1GbPRWZgM5Atx1cEjhL2bNG/oKGKMTa6bYkAAAAASUVORK5CYII="/>
         </div>
         <footer id="footer">
             <h4>&copy danielRamirez Todos los derechos reservados</h4>
-            <h5>v 1.1</h5>
+            <h5>v 1.2</h5>
         </footer>
 
 

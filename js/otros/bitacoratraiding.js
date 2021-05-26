@@ -1,6 +1,10 @@
 const crear = document.getElementById('enviar')
 const si = document.getElementById('si')
 let showTotal = document.getElementById('cuenta-total')
+let totalGanadas = document.getElementById('total-ganadas')
+let totalPerdidas = document.getElementById('total-perdidas')
+let divisaRentable = document.getElementById('divisa-rentable')
+let divisaNorentable = document.getElementById('divisa-menosrentable')
 let EstadoDeCuenta
 
 // crear registro bitacora
@@ -12,7 +16,10 @@ crear.addEventListener('submit', async function (e) {
     const opcion = document.getElementById('opcion').value
     const win = document.getElementById('Ganada').value
     const seleccione = document.getElementById('seleccione').value
+    const seleccionar = document.getElementById('seleccionar').value
     const cuenta = document.getElementById('Cuenta').value
+    const divisa = document.getElementById('opcion-divisa').value
+    const comentario = document.getElementById('comentario').value
     let Result
     let Ganada
     let Perdida
@@ -44,7 +51,7 @@ crear.addEventListener('submit', async function (e) {
 
     }
 
-    if (opcion === win && opcion !== seleccione && profit !== '' && profit <= 100 && inversion <= EstadoDeCuenta && EstadoDeCuenta > 0) {
+    if (opcion === win && opcion !== seleccione  && divisa != seleccionar && profit !== '' && profit <= 100 && inversion <= EstadoDeCuenta && EstadoDeCuenta > 0) {
         Ganada = parseFloat(inversion * profit / 100)
         Perdida = 0
         Result = Ganada - Perdida
@@ -57,6 +64,8 @@ crear.addEventListener('submit', async function (e) {
             profit:profit,
             EstadoDeCuenta: EstadoDeCuenta,
             Ganadaoperdida: opcion,
+            Comentario:comentario,
+            Divisa:divisa,
             Result: Result
         })
             .then((docRef) => {
@@ -81,7 +90,7 @@ crear.addEventListener('submit', async function (e) {
                     icon: "error",
                 })
             })
-    } else if (opcion !== win && opcion !== seleccione && EstadoDeCuenta > 0 && inversion <= EstadoDeCuenta) {
+    } else if (opcion !== win && opcion !== seleccione && divisa !== seleccionar && EstadoDeCuenta > 0 && inversion <= EstadoDeCuenta) {
         Perdida = parseFloat(inversion)
         Ganada = 0
         Result = parseFloat(Ganada - Perdida)
@@ -94,6 +103,8 @@ crear.addEventListener('submit', async function (e) {
             profit:profit,
             EstadoDeCuenta: EstadoDeCuenta,
             Ganadaoperdida: opcion,
+            Comentario:comentario,
+            Divisa:divisa,
             Result: Result
         })
             .then((docRef) => {
@@ -118,7 +129,7 @@ crear.addEventListener('submit', async function (e) {
             })
     } else {
         Swal.fire({
-            title: 'No se pudo registrar, porfavor selecciona si es ganada o perdida y verifique que su cuenta no este en 0',
+            title: 'No se pudo registrar, porfavor selecciona si es ganada o perdida y la divisa y que la cuenta no este en 0',
             icon: "error",
         })
 
@@ -130,6 +141,47 @@ const Datos = document.getElementById('datos')
 
 let user = firebase.auth().onAuthStateChanged(async function (user) {
     let usuario = user.email + ' bitacora'
+    
+    // Ganadas
+    db.collection(usuario).where("Ganadaoperdida", "==", "Ganada")
+    .onSnapshot((querySnapshot) => {
+        let Ganadas = []
+        querySnapshot.forEach((doc) => {
+            Ganadas.push(doc.data().Divisa);
+        });
+        function dup(arrr) {
+            let max = { item: 0, count: 0 };
+            for (let i = 0; i < arrr.length; i++) {
+                let arrOccurences = arrr.filter(item => { return item === arrr[i] }).length;
+                if (arrOccurences > max.count) {
+                    max = { item: arrr[i], count: arrr.filter(item => { return item === arrr[i] }).length };
+                }
+            }
+            return max.item;
+        }
+        divisaRentable.innerHTML = dup(Ganadas)
+        totalGanadas.innerHTML = Ganadas.length
+    });
+    // Perdidas
+    db.collection(usuario).where("Ganadaoperdida", "==", "Perdida")
+    .onSnapshot((querySnapshot) => {
+        let Perdidas = []
+        querySnapshot.forEach((doc) => {
+            Perdidas.push(doc.data().Divisa);
+        });
+        function dup(arrr) {
+            let max = { item: 0, count: 0 };
+            for (let i = 0; i < arrr.length; i++) {
+                let arrOccurences = arrr.filter(item => { return item === arrr[i] }).length;
+                if (arrOccurences > max.count) {
+                    max = { item: arrr[i], count: arrr.filter(item => { return item === arrr[i] }).length };
+                }
+            }
+            return max.item;
+        }
+        divisaNorentable.innerHTML = dup(Perdidas)
+        totalPerdidas.innerHTML = Perdidas.length
+    });
 
     // Mostramos la cuenta
         let Count = 0
@@ -145,17 +197,17 @@ let user = firebase.auth().onAuthStateChanged(async function (user) {
         querySnapshot.forEach((doc) => {
 
             Datos.innerHTML += `
-              <div class="info">                      
-                <div>
-                    <h4>Fecha:${doc.data().Fecha}</h4>
-                    <h4>Hora:${doc.data().Hora}</h4>
-                    <h4>Inversion:${doc.data().inversion}</h4>
-                    <h4>Profit:${doc.data().profit}</h4>
-                    <h3 class="info1">${doc.data().Ganadaoperdida}</h3>
-                    <h3>Total:${doc.data().Result.toFixed(2)}</h3>
-                </div>
-                <button id="Eliminar" class="btn btn-danger" onclick="eliminar('${doc.id}')">Eliminar</button>
-              </div>
+              <tr>                      
+                    <td>${doc.data().Fecha}</td>
+                    <td>${doc.data().Hora}</td>
+                    <td>${doc.data().inversion}</td>
+                    <td>${doc.data().Divisa}</td>
+                    <td>${doc.data().profit}%</td>
+                    <td>${doc.data().Ganadaoperdida}</td>
+                    <td>${doc.data().Comentario}</td>
+                    <td>${doc.data().Result.toFixed(2)}</td>
+                    <td><button id="Eliminar" class="btn btn-danger" onclick="eliminar('${doc.id}')">Eliminar</button></td>
+              </tr>
             `;
             // ocultamos y mostramos el input de la cuenta
             if(EstadoDeCuenta > 0){
@@ -166,7 +218,6 @@ let user = firebase.auth().onAuthStateChanged(async function (user) {
             showTotal.innerHTML = EstadoDeCuenta + ' USD';
         });
     });
-
 
 })
 
